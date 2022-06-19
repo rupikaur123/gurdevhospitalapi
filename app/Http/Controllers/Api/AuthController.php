@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AuthController extends BaseController
 {
     /**
-     * Register api
+     * Register api testt
      *
      * @return \Illuminate\Http\Response
      */
