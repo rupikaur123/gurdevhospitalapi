@@ -30,7 +30,7 @@ class ServicesService
 
             return $services;
         }else{
-            return Services::get();
+            return Services::where('status','1')->get();
         }
     }
 }

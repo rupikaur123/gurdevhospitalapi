@@ -179,4 +179,24 @@ class ServicesController extends BaseController
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
     }
+
+    public function getServicesList($id = ''){
+        try{
+
+            if($id == ''){
+                $param = '';
+                $data = $this->service->get($param);
+                
+            }else{
+                $id = Helper::customDecrypt($id);
+                $data = Services::find($id);
+            }
+
+            return fractal($data, new ServicesTransformer());
+            
+        }catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
+        }
+        
+    }
 }

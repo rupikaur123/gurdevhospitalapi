@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\CommonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,14 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('services', ServicesController::class);
     Route::post('services_status', [ServicesController::class,'changeServiceStatus']);
+    Route::resource('latestnews', CommonController::class);
+    Route::post('news_status', [CommonController::class,'changeLatestNewsStatus']);
+    Route::post('add_gallery_img', [CommonController::class,'addGalleryImage']);
+    Route::post('change_status_gallery', [CommonController::class,'changeStatusGalleryImg']);
+    Route::post('delete_gallery_img', [CommonController::class,'deleteGalleryImg']);
 });
+
+Route::get('get_services/{id?}', [ServicesController::class,'getServicesList']);
+Route::get('get_latest_news/{id?}', [CommonController::class,'getLatestNews']);
+Route::get('gallery_list', [CommonController::class,'getGalleryList']);
 

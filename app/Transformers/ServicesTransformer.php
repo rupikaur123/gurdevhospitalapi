@@ -14,16 +14,14 @@ class ServicesTransformer extends TransformerAbstract
      */
     public function transform(Services $services)
     {
+        $api_url = env('API_URL');
         return [
             'id' => Helper::customCrypt($services->id),
 			'name' => $services->name,
 			'description' => $services->description,
 			'alies_name' => $services->alies_name,
-			'image' => $services->image,
-			'image_path' => $services->image_path,
-			'status' => $services->status,
-			'created_at' => $services->created_at,
-			'updated_at' => $services->updated_at
+			'image' => $api_url.$services->image_path.$services->image,
+			'status' => $services->status
         ];
     }
 }
