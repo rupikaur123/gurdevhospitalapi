@@ -10,6 +10,9 @@ use App\Http\Services\ServicesService;
 use App\Transformers\ServicesTransformer;
 use App\Transformers\ReviewsTransformer;
 use Spatie\Fractal\Fractal;
+use App\Models\Gallery;
+use App\Models\Appointments;
+use App\Models\LatestNews;
 use Validator;
 use File;
 use Helper;
@@ -415,6 +418,27 @@ class ServicesController extends BaseController
             $param = '';
             $data = $this->service->getReviews($param);
             return fractal($data, new ReviewsTransformer());
+        }catch(\Throwable $th){
+            return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
+        }
+    }
+
+    /*****************************
+     * get data to show dashboard
+     */
+    public function getDashboardData(){
+        try{
+            
+            $data = array();
+            $today_date = date('d-m-Y');
+            $data['total_services'] = Services::count();
+            $data['total_active_services'] = Services::where('status','1')->count();
+            $data['total_appointments'] = Appointments::count();
+            $data['total_todays_appointments'] = Appointments::where('appointment_date',$today_date)->count();
+            $data['total_gallery_images'] = Gallery::count();
+            $data['total_active_gallery_images'] = Gallery::where('status','1')->count();
+            $data['latest_news'] = LatestNews::where('status','1')->get();
+            return $this->sendResponse($data, 'Dashboard Data Get successfully.');
         }catch(\Throwable $th){
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }

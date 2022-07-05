@@ -27,6 +27,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group( function () {
     Route::resource('services', ServicesController::class);
     Route::post('services_status', [ServicesController::class,'changeServiceStatus']);
+    Route::get('dashboard', [ServicesController::class,'getDashboardData']);
     Route::resource('latestnews', CommonController::class);
     Route::post('news_status', [CommonController::class,'changeLatestNewsStatus']);
     Route::post('add_gallery_img', [CommonController::class,'addGalleryImage']);
