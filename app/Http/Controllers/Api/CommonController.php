@@ -337,26 +337,28 @@ class CommonController extends BaseController
             
             Appointments::create($input);
 
-            $data["subject"] = 'Apointment Request';
-	        $data["email_to"] = 'rupinder@mailinator.com';
-            $data["content"]  = 'test';
+	        $input["email_to"] = env('appointment_sent_to');
 
-	        // $image_url = [
-	        //     'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
-	        //     'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
-	        //     'blue_curve_img_url' => env('APP_URL')."/img/".env('BLUE_CURVE_IMG_URL'),
-	        //     'white_logo_img_url' => env('APP_URL')."/img/".env('WHITE_LOGO_IMG_URL'),
-			// 	'banner_img_url' => env('APP_URL')."/img/emailBanner.jpg",
-	        // ];
+	        $image_url = [
+	            'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
+	            'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
+	        ];
 
-            $image_url = 'test';
+            if(isset($request->u_email) && $request->u_email != ''){
+                $u_email = $request->u_email;
 
+                Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
+                    $m->from($input["email_to"],'Gurdev Hospital');
+                    $m->to($input['u_email'])->subject('Request Accepted');
+                });
+            }else{
+                $u_email = 'rupinder@mailinator.com';
+            }
 
-	        Mail::send('emails.CommonMailTemplate', ['data' => $data, 'image_url'=>$image_url], function ($m) use($data) {
-	            $m->from('noreply@meritincentives.com','Takreem');
-	            $m->to($data["email_to"])->subject($data['subject']);
+	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
+	            $m->from($u_email,'Gurdev Hospital');
+	            $m->to($input["email_to"])->subject('Apointment Request');
 	        });
-
 
             return $this->sendResponse(array(), 'Appointment booked successfully.');
 

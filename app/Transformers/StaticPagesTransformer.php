@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Transformers;
+
+use League\Fractal\TransformerAbstract;
+use App\Models\StaticPages;
+use Helper;
+
+class StaticPagesTransformer extends TransformerAbstract
+{
+    
+    /**
+     * A Fractal transformer.
+     *
+     * @return array
+     */
+    public function transform(StaticPages $StaticPages)
+    {
+        $api_url = env('API_URL');
+        return [
+            'id' => Helper::customCrypt($StaticPages->id),
+			'title' => $StaticPages->title,
+			'content' => $StaticPages->content,
+			'image' => $api_url.'/'.$StaticPages->image_path.$StaticPages->image,
+			'status' => $StaticPages->status
+        ];
+    }
+}

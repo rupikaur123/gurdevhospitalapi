@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Models\Services;
+use App\Models\Reviews;
 
 class ServicesService
 {
@@ -31,6 +32,32 @@ class ServicesService
             return $services;
         }else{
             return Services::where('status','1')->get();
+        }
+    }
+
+    public function getReviews($param = ''){
+        if($param != ''){
+            $search = $param['search'];
+            $column = $param['column'];
+            $order  = $param['order'];
+            $rows   = $param['rows'];
+
+            $Reviews = Reviews::select('*');
+
+            if($search != ''){
+                $Reviews = $Reviews->where('review', 'like', '%' . $search . '%');
+            }
+
+            $Reviews = $Reviews->orderBy('reviews.'.$column, $order);
+            if($rows != ''){
+                $Reviews = $Reviews->paginate($rows);
+            }else{
+                $Reviews = $Reviews->get();
+            }
+
+            return $Reviews;
+        }else{
+            return Reviews::where('status','1')->get();
         }
     }
 }
