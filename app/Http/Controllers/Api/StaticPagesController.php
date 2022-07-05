@@ -176,8 +176,8 @@ class StaticPagesController extends BaseController
             if($page_id == ''){
                 $data = $this->service->get();
             }else{
-                $id = Helper::customDecrypt($page_id);
-                $data = StaticPages::find($id);
+                //$id = Helper::customDecrypt($page_id);
+                $data = StaticPages::find($page_id);
             }
             
             return fractal($data, new StaticPagesTransformer());
