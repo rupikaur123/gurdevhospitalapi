@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Services;
 
 class Appointments extends Model
 {
@@ -12,8 +13,7 @@ class Appointments extends Model
     protected $fillable = [
         'service_id',
         'appointment_date',
-        'u_first_name',
-        'u_last_name',
+        'u_full_name',
         'u_email',
         'u_dob',
         'u_address',
@@ -21,4 +21,9 @@ class Appointments extends Model
         'comment',
         'status',
     ];
+
+    public function service()
+    {
+        return $this->belongsTo(Services::class,'service_id','id');
+    }
 }

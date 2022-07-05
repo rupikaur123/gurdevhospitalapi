@@ -6,12 +6,15 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
 use App\Http\Services\CommonService;
 use App\Transformers\LatestNewsTransformer;
+use App\Transformers\AppointmentsTransformer;
 use Spatie\Fractal\Fractal;
 use Validator;
 use File;
 use Helper;
 use App\Models\LatestNews;
 use App\Models\Gallery;
+use App\Models\Appointments;
+use Illuminate\Support\Facades\Mail;
 
 class CommonController extends BaseController
 {
@@ -300,6 +303,82 @@ class CommonController extends BaseController
             }
 
         }catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
+        }
+    }
+
+    public function bookAnAppointment(Request $request){
+        try{
+            $validator = Validator::make($request->all(), [
+                'u_full_name' => 'required',
+                'u_email' => 'email',
+                'u_phone_number' => 'required',
+                //'u_address' => 'required',
+                'u_dob' => 'date_format:d-m-Y|after:today',
+                //'comment' => 'required',
+                'service_id' => 'required|exists:services,id'
+            ]);
+       
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors());       
+            }
+
+            $input = $request->all();
+            if(isset($request->u_dob) && $request->u_dob != ''){
+                $input['u_dob'] = date("d-m-Y", strtotime($request->u_dob));
+            }
+
+            if(isset($request->dob) && $request->dob != ''){
+                $input['u_dob'] = date("d-m-Y", strtotime($request->dob));
+            }
+
+            $input['appointment_date'] = date('d-m-Y');
+            $input['status'] = '1';
+            
+            Appointments::create($input);
+
+            $data["subject"] = 'Apointment Request';
+	        $data["email_to"] = 'rupinder@mailinator.com';
+            $data["content"]  = 'test';
+
+	        // $image_url = [
+	        //     'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
+	        //     'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
+	        //     'blue_curve_img_url' => env('APP_URL')."/img/".env('BLUE_CURVE_IMG_URL'),
+	        //     'white_logo_img_url' => env('APP_URL')."/img/".env('WHITE_LOGO_IMG_URL'),
+			// 	'banner_img_url' => env('APP_URL')."/img/emailBanner.jpg",
+	        // ];
+
+            $image_url = 'test';
+
+
+	        Mail::send('emails.CommonMailTemplate', ['data' => $data, 'image_url'=>$image_url], function ($m) use($data) {
+	            $m->from('noreply@meritincentives.com','Takreem');
+	            $m->to($data["email_to"])->subject($data['subject']);
+	        });
+
+
+            return $this->sendResponse(array(), 'Appointment booked successfully.');
+
+        }catch (\Throwable $th) {
+            return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
+        }
+    }
+
+    public function getAppointments(Request $request,$appointment_id = ''){
+        try{
+
+            $param = [
+                'search' => ($request->search)?$request->search:'',
+                'column' => ($request->column)?$request->column:'id',
+                'order' => ($request->order)?$request->order:'desc',
+                'rows' => ($request->rows)?$request->rows:'',
+                'appointment_id' => ($appointment_id)?Helper::customDecrypt($appointment_id):'',
+            ];
+
+            $data = $this->service->getAppointments($param);
+            return fractal($data, new AppointmentsTransformer());
+        }catch(\Throwable $th){
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
     }

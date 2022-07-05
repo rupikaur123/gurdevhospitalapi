@@ -31,9 +31,11 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('add_gallery_img', [CommonController::class,'addGalleryImage']);
     Route::post('change_status_gallery', [CommonController::class,'changeStatusGalleryImg']);
     Route::post('delete_gallery_img', [CommonController::class,'deleteGalleryImg']);
+    Route::get('appointments/{appointment_id?}', [CommonController::class,'getAppointments']);
 });
 
 Route::get('get_services/{id?}', [ServicesController::class,'getServicesList']);
 Route::get('get_latest_news/{id?}', [CommonController::class,'getLatestNews']);
 Route::get('gallery_list', [CommonController::class,'getGalleryList']);
+Route::post('book_appointment', [CommonController::class,'bookAnAppointment']);
 
