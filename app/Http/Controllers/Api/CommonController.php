@@ -49,7 +49,7 @@ class CommonController extends BaseController
             $validator = Validator::make($request->all(), [
                 'title' => 'required|min:5|max:50',
                 'content' => 'required|min:10|max:500',
-                'date' => 'required|unique:services,alies_name',
+                'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
        
@@ -116,7 +116,7 @@ class CommonController extends BaseController
             $validator = Validator::make($request->all(), [
                 'title' => 'required|min:5|max:50',
                 'content' => 'required|min:10|max:500',
-                'date' => 'required|unique:services,alies_name',
+                'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
        

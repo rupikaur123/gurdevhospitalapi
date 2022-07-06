@@ -56,7 +56,7 @@ class ServicesController extends BaseController
         try{
             $validator = Validator::make($request->all(), [
                 'name' => 'required|min:5|max:50',
-                'description' => 'required|min:10|max:500',
+                'description' => 'required|min:10|max:1500',
                 'alies_name' => 'required|unique:services,alies_name',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
@@ -125,7 +125,7 @@ class ServicesController extends BaseController
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'description' => 'required',
+                'description' => 'required|min:10|max:1500',
                 'alies_name' => 'required|unique:services,alies_name,'.$id,
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
