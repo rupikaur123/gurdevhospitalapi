@@ -59,6 +59,7 @@ class ServicesController extends BaseController
                 'description' => 'required|min:10|max:1500',
                 'alies_name' => 'required|unique:services,alies_name',
                 'image' => 'file|mimes:jpeg,png,jpg',
+                'banner_image' => 'file|mimes:jpeg,png,jpg',
             ]);
        
             if($validator->fails()){
@@ -86,6 +87,27 @@ class ServicesController extends BaseController
 
                 $input['image'] = $newname;
                 $input['image_path'] = $path;
+
+            }
+
+            if ($request->hasFile('banner_image')) {
+                $file = $request->file('banner_image');
+                
+                $file_name = $file->getClientOriginalName();
+                $file_ext = $file->getClientOriginalExtension();
+                $fileInfo = pathinfo($file_name);
+                $filename = $fileInfo['filename'];
+                $path = 'uploaded/services_images/';
+                if(!File::exists($path)) {
+                    File::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $randm = rand(10,1000);
+                $newname = $randm.time().'-servicebimg-'.$filename.'.'.$file_ext;
+                $newname = str_replace(" ","_",$newname);
+                $destinationPath = public_path($path);
+                $file->move($destinationPath, $newname);
+
+                $input['banner_image'] = $newname;
 
             }
 
@@ -128,6 +150,7 @@ class ServicesController extends BaseController
                 'description' => 'required|min:10|max:1500',
                 'alies_name' => 'required|unique:services,alies_name,'.$id,
                 'image' => 'file|mimes:jpeg,png,jpg',
+                'banner_image' => 'file|mimes:jpeg,png,jpg',
             ]);
        
             if($validator->fails()){
@@ -160,6 +183,30 @@ class ServicesController extends BaseController
     
                     if($get_service->image != '' && $get_service->image != null && $get_service->image != 'null'){
                         File::delete($destinationPath.$get_service->image);
+                    }
+                }
+
+                if ($request->hasFile('banner_image')) {
+                    $file = $request->file('banner_image');
+                    
+                    $file_name = $file->getClientOriginalName();
+                    $file_ext = $file->getClientOriginalExtension();
+                    $fileInfo = pathinfo($file_name);
+                    $filename = $fileInfo['filename'];
+                    $path = 'uploaded/services_images/';
+                    if(!File::exists($path)) {
+                        File::makeDirectory($path, $mode = 0777, true, true);
+                    }
+                    $randm = rand(10,1000);
+                    $newname = $randm.time().'-servicebimg-'.$filename.'.'.$file_ext;
+                    $newname = str_replace(" ","_",$newname);
+                    $destinationPath = public_path($path);
+                    $file->move($destinationPath, $newname);
+    
+                    $input['banner_image'] = $newname;
+    
+                    if($get_service->banner_image != '' && $get_service->banner_image != null && $get_service->banner_image != 'null'){
+                        File::delete($destinationPath.$get_service->banner_image);
                     }
                 }
 
