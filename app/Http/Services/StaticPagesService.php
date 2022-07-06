@@ -20,7 +20,7 @@ class StaticPagesService
                 ->orwhere('content', 'like', '%' . $search . '%');
             }
 
-            $StaticPages = $StaticPages->orderBy('latest_news.'.$column, $order);
+            $StaticPages = $StaticPages->orderBy('static_pages.'.$column, $order);
             if($rows != ''){
                 $StaticPages = $StaticPages->paginate($rows);
             }else{
