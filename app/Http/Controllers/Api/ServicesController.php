@@ -31,15 +31,14 @@ class ServicesController extends BaseController
     public function index(Request $request)
     {
         try{
-            $param = '';
-            if(isset($request->search) || isset($request->column) || isset($request->order) || isset($request->rows)){
-                $param = [
-                    'search' => ($request->search)?$request->search:'',
-                    'column' => ($request->column)?$request->column:'id',
-                    'order' => ($request->order)?$request->order:'desc',
-                    'rows' => ($request->rows)?$request->rows:'',
-                ];
-            }
+            
+            $param = [
+                'search' => ($request->search)?$request->search:'',
+                'column' => ($request->column)?$request->column:'id',
+                'order' => ($request->order)?$request->order:'desc',
+                'rows' => ($request->rows)?$request->rows:'',
+            ];
+            
 
             $data = $this->service->get($param);
             return fractal($data, new ServicesTransformer());
@@ -277,15 +276,14 @@ class ServicesController extends BaseController
     public function getReviewsDashboard(Request $request)
     {
         try{
-            $param = '';
-            if(isset($request->search) || isset($request->column) || isset($request->order) || isset($request->rows)){
-                $param = [
-                    'search' => ($request->search)?$request->search:'',
-                    'column' => ($request->column)?$request->column:'id',
-                    'order' => ($request->order)?$request->order:'desc',
-                    'rows' => ($request->rows)?$request->rows:'',
-                ];
-            }
+            
+            $param = [
+                'search' => ($request->search)?$request->search:'',
+                'column' => ($request->column)?$request->column:'id',
+                'order' => ($request->order)?$request->order:'desc',
+                'rows' => ($request->rows)?$request->rows:'',
+            ];
+            
 
             $data = $this->service->getReviews($param);
             return fractal($data, new ReviewsTransformer());

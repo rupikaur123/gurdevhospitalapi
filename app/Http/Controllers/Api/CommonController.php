@@ -26,15 +26,14 @@ class CommonController extends BaseController
     public function index(Request $request)
     {
         try{
-            $param = '';
-            if(isset($request->search) || isset($request->column) || isset($request->order) || isset($request->rows)){
-                $param = [
-                    'search' => ($request->search)?$request->search:'',
-                    'column' => ($request->column)?$request->column:'id',
-                    'order' => ($request->order)?$request->order:'desc',
-                    'rows' => ($request->rows)?$request->rows:'',
-                ];
-            }
+            
+            $param = [
+                'search' => ($request->search)?$request->search:'',
+                'column' => ($request->column)?$request->column:'id',
+                'order' => ($request->order)?$request->order:'desc',
+                'rows' => ($request->rows)?$request->rows:'',
+            ];
+            
 
             $data = $this->service->get($param);
             return fractal($data, new LatestNewsTransformer());
@@ -48,7 +47,7 @@ class CommonController extends BaseController
         try{
             $validator = Validator::make($request->all(), [
                 'title' => 'required|min:5|max:50',
-                'content' => 'required|min:10|max:500',
+                'content' => 'required|min:10',
                 'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
@@ -115,7 +114,7 @@ class CommonController extends BaseController
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
                 'title' => 'required|min:5|max:50',
-                'content' => 'required|min:10|max:500',
+                'content' => 'required|min:10',
                 'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
