@@ -22,9 +22,9 @@ class LatestNewsTransformer extends TransformerAbstract
         $api_url = env('API_URL');
         return [
             'id' => Helper::customCrypt($LatestNews->id),
-			'title' => $LatestNews->name,
-			'content' => $LatestNews->description,
-			'date' => $LatestNews->alies_name,
+			'title' => $LatestNews->title,
+			'content' => $LatestNews->content,
+			'date' => $LatestNews->date,
 			'image' => $api_url.$LatestNews->image_path.$LatestNews->image,
 			'status' => $LatestNews->status
         ];
