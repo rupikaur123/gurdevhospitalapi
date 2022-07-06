@@ -14,7 +14,7 @@ class AddColumnToServices extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            //
+            $table->string('banner_image')->nullable();
         });
     }
 
