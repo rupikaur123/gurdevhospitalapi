@@ -62,7 +62,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -131,7 +131,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -189,7 +189,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             Services::where('id',$request->id)->update(['status'=>$request->status]);
@@ -258,7 +258,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -325,7 +325,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -379,7 +379,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             Reviews::where('id',$request->id)->update(['status'=>$request->status]);
@@ -399,7 +399,7 @@ class ServicesController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             Reviews::where('id',$request->id)->delete();

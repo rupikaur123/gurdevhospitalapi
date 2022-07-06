@@ -54,7 +54,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -121,7 +121,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -173,7 +173,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             LatestNews::where('id',$request->id)->update(['status'=>$request->status]);
@@ -210,7 +210,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
@@ -268,7 +268,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             Gallery::where('id',$request->id)->update(['status'=>$request->status]);
@@ -285,7 +285,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $gallery_img = Gallery::find($request->id);
@@ -320,7 +320,7 @@ class CommonController extends BaseController
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
 
             $input = $request->all();
