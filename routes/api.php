@@ -30,7 +30,6 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('dashboard', [ServicesController::class,'getDashboardData']);
     Route::resource('latestnews', CommonController::class);
     Route::post('news_status', [CommonController::class,'changeLatestNewsStatus']);
-    Route::get('gallery_list_dashboard', [CommonController::class,'getGalleryListDashboard']);
     Route::post('add_gallery_img', [CommonController::class,'addGalleryImage']);
     Route::post('change_status_gallery', [CommonController::class,'changeStatusGalleryImg']);
     Route::post('delete_gallery_img', [CommonController::class,'deleteGalleryImg']);
