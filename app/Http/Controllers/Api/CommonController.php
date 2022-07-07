@@ -307,6 +307,7 @@ class CommonController extends BaseController
     }
 
     public function bookAnAppointment(Request $request){
+        DB::beginTransaction();
         try{
             $validator = Validator::make($request->all(), [
                 'u_full_name' => 'required',
@@ -359,9 +360,11 @@ class CommonController extends BaseController
 	            $m->to($input["email_to"])->subject('Appointment Request');
 	        });
 
+            DB::commit();
             return $this->sendResponse(array(), 'Appointment booked successfully.');
 
         }catch (\Throwable $th) {
+            DB::rollback();
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
     }
