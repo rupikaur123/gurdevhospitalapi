@@ -356,7 +356,7 @@ class CommonController extends BaseController
             // }
 
             
-            Mail::send('emails.CommonMailTemplate', compact('input'), function($message) use ($input){
+            Mail::send('emails.CommonMailTemplate', compact('input','image_url'), function($message) use ($input){
                 $message->from($input['email_to']);
                 $message->to('rupinder@yahoo.com');
                 $message->subject('test');
