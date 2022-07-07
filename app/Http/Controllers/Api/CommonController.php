@@ -336,28 +336,36 @@ class CommonController extends BaseController
             
             Appointments::create($input);
 
-	        $input["email_to"] = env('appointment_sent_to');
+	        //$input["email_to"] = env('appointment_sent_to');
+	        $input["email_to"] = 'maninder0283@gmail.com';
 
 	        $image_url = [
 	            'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
 	            'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
 	        ];
 
-            if(isset($request->u_email) && $request->u_email != ''){
-                $u_email = $request->u_email;
+            // if(isset($request->u_email) && $request->u_email != ''){
+            //     $u_email = $request->u_email;
 
-                Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
-                    $m->from($input["email_to"],'Gurdev Hospital');
-                    $m->to($input['u_email'])->subject('Request Accepted');
-                });
-            }else{
-                $u_email = 'rupinder@mailinator.com';
-            }
+            //     Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
+            //         $m->from($input["email_to"],'Gurdev Hospital');
+            //         $m->to($input['u_email'])->subject('Request Accepted');
+            //     });
+            // }else{
+            //     $u_email = 'rupinder@mailinator.com';
+            // }
 
-	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
-	            $m->from($u_email,'Gurdev Hospital');
-	            $m->to($input["email_to"])->subject('Appointment Request');
-	        });
+            
+            Mail::send('emails.CommonMailTemplate', compact('input'), function($message) use ($input){
+                $message->from($input['email_to']);
+                $message->to('rupinder@yahoo.com');
+                $message->subject('test');
+            });
+
+	        // Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
+	        //     $m->from($u_email,'Gurdev Hospital');
+	        //     $m->to($input["email_to"])->subject('Appointment Request');
+	        // });
 
             return $this->sendResponse(array(), 'Appointment booked successfully.');
 
