@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\CommonController;
 use App\Http\Controllers\Api\StaticPagesController;
+use App\Http\Controllers\Api\DoctorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
      
 Route::middleware('auth:sanctum')->group( function () {
+    Route::get('logout', [AuthController::class, 'logout']);
     Route::resource('services', ServicesController::class);
     Route::post('services_status', [ServicesController::class,'changeServiceStatus']);
     Route::get('dashboard', [ServicesController::class,'getDashboardData']);
@@ -41,6 +43,8 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('update_review/{review_id}', [ServicesController::class,'updateReviewsDashboard']);
     Route::post('delete', [ServicesController::class,'deleteReview']);
     Route::resource('static_pages', StaticPagesController::class);
+    Route::resource('doctors', DoctorsController::class);
+    Route::post('change_doctor_status', [DoctorsController::class,'changeDoctorStatus']);
 });
 
 Route::get('get_services/{id?}', [ServicesController::class,'getServicesList']);
@@ -49,4 +53,5 @@ Route::get('gallery_list', [CommonController::class,'getGalleryList']);
 Route::post('book_appointment', [CommonController::class,'bookAnAppointment']);
 Route::get('reviews_front', [ServicesController::class,'getReviewsFrontend']);
 Route::get('static_pages_front/{page_id?}', [StaticPagesController::class,'getPagesFrontend']);
+Route::get('doctors_front', [DoctorsController::class,'getDoctorsFrontend']);
 
