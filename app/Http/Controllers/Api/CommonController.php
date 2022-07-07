@@ -355,7 +355,7 @@ class CommonController extends BaseController
             //     $u_email = 'rupinder@mailinator.com';
             // }
 
-            $data = $input
+            $data = $input;
             
             Mail::send('emails.CommonMailTemplate', compact('data','image_url'), function($message) use ($data){
                 $message->from($data['email_to']);
