@@ -335,12 +335,9 @@ class CommonController extends BaseController
 
             $input['appointment_date'] = date('d-m-Y');
             $input['status'] = '1';
-            
             Appointments::create($input);
-
-	        //$input["email_to"] = env('appointment_sent_to');
-	        $input["email_to"] = 'rubymann929@gmail.com';
-
+	        $input["email_to"] = env('appointment_sent_to');
+            
 	        $image_url = [
 	            'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
 	            'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
@@ -354,24 +351,15 @@ class CommonController extends BaseController
                     $m->to($input['u_email'])->subject('Request Accepted');
                 });
             }else{
-                $u_email = 'rupinder@mailinator.com';
+                $u_email = 'maninder0283@gmail.com';
             }
-
+            
 	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
 	            $m->from($u_email,'Gurdev Hospital');
 	            $m->to($input["email_to"])->subject('Appointment Request');
 	        });
 
-            Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($u_email) {
-	            $m->from('maninder0283@gmail.com','Gurdev Hospital');
-	            $m->to('rubymann929@gmail.com')->subject('Appointment Request');
-	        });
-
-            Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
-                $m->from('rubymann929@gmail.com','Gurdev Hospital');
-                $m->to('maninder0283@gmail.com')->subject('Request Accepted');
-            });
-
+            
             DB::commit();
             return $this->sendResponse(array(), 'Appointment booked successfully.');
 
