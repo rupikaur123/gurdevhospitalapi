@@ -362,6 +362,16 @@ class CommonController extends BaseController
 	            $m->to($input["email_to"])->subject('Appointment Request');
 	        });
 
+            Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($u_email) {
+	            $m->from('maninder0283@gmail.com','Gurdev Hospital');
+	            $m->to('rubymann929@gmail.com')->subject('Appointment Request');
+	        });
+
+            Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
+                $m->from('rubymann929@gmail.com','Gurdev Hospital');
+                $m->to('maninder0283@gmail.com')->subject('Request Accepted');
+            });
+
             DB::commit();
             return $this->sendResponse(array(), 'Appointment booked successfully.');
 
