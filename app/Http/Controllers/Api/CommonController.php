@@ -15,6 +15,7 @@ use App\Models\LatestNews;
 use App\Models\Gallery;
 use App\Models\Appointments;
 use Illuminate\Support\Facades\Mail;
+use DB;
 
 class CommonController extends BaseController
 {
