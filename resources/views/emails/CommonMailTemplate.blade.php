@@ -6,7 +6,6 @@
 	</tr>
 	<tr>
 		<td align="center" style="padding: 40px 20px; line-height: 1.6;">
-			<img src="{{ $image_url['smile_img_url'] }}" alt="Thank You" width="100" />
 			<h2 style="text-transform: uppercase; color: #2C72EC;">Appointment Request</h2>
 			<h4>Hello Team,</h4>
 			<h6>Appointment has been requested by new user, Here are the basic details:</h6>

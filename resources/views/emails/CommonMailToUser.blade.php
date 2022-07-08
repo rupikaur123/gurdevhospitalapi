@@ -6,7 +6,6 @@
 	</tr>
 	<tr>
 		<td align="center" style="padding: 40px 20px; line-height: 1.6;">
-			<img src="{{ $image_url['smile_img_url'] }}" alt="Thank You" width="100" />
 			<h2 style="text-transform: uppercase; color: #2C72EC;">Thank you for valuable time.</h2>
 			<h4>We are happy to serve you better.</h4>
 		</td>
