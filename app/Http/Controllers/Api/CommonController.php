@@ -315,7 +315,7 @@ class CommonController extends BaseController
                 'u_email' => 'email',
                 'u_phone_number' => 'required',
                 //'u_address' => 'required',
-                'u_dob' => 'date_format:d-m-Y|after:today',
+                'u_dob' => 'date_format:d-m-Y|before:today',
                 //'comment' => 'required',
                 'service_id' => 'required|exists:services,id'
             ]);
