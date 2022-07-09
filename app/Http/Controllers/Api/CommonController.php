@@ -337,7 +337,8 @@ class CommonController extends BaseController
             $input['appointment_date'] = date('d-m-Y');
             $input['status'] = '1';
             Appointments::create($input);
-	        $input["email_to"] = env('appointment_sent_to');
+	        //$input["email_to"] = env('appointment_sent_to');
+	        $input["email_to"] = 'rubymann929@gmail.com';
             
 	        $image_url = [
 	            'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
@@ -352,7 +353,7 @@ class CommonController extends BaseController
                     $m->to($input['u_email'])->subject('Request Accepted');
                 });
             }else{
-                $u_email = 'rubymann929s@gmail.com';
+                $u_email = 'rubymann929@gmail.com';
             }
             
 	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
