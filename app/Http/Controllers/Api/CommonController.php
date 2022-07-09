@@ -310,6 +310,7 @@ class CommonController extends BaseController
     public function bookAnAppointment(Request $request){
         DB::beginTransaction();
         try{
+            $request['service_id'] = Helper::customDecrypt($request['service_id']);
             $validator = Validator::make($request->all(), [
                 'u_full_name' => 'required',
                 'u_email' => 'email',
