@@ -352,7 +352,7 @@ class CommonController extends BaseController
                     $m->to($input['u_email'])->subject('Request Accepted');
                 });
             }else{
-                $u_email = 'maninder0283@gmail.com';
+                $u_email = 'rubymann929s@gmail.com';
             }
             
 	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
