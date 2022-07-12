@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\CommonService;
 use App\Transformers\LatestNewsTransformer;
 use App\Transformers\AppointmentsTransformer;
+use App\Transformers\GalleryTransformer;
 use Spatie\Fractal\Fractal;
 use Validator;
 use File;
@@ -252,9 +253,9 @@ class CommonController extends BaseController
             }else{
                 $gallery_list = Gallery::where('status','1')->get();
             }
-
-            return $this->sendResponse($gallery_list, 'Gallery List Get successfully.');
-
+            return fractal($gallery_list, new GalleryTransformer());
+            //return $this->sendResponse($gallery_list, 'Gallery List Get successfully.');
+            
         }catch (\Throwable $th) {
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
