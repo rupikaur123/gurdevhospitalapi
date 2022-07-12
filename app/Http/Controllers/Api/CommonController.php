@@ -253,8 +253,8 @@ class CommonController extends BaseController
             }else{
                 $gallery_list = Gallery::where('status','1')->get();
             }
-           // return fractal($gallery_list, new GalleryTransformer());
-            return $this->sendResponse($gallery_list, 'Gallery List Get successfully.');
+            return fractal($gallery_list, new GalleryTransformer());
+            //return $this->sendResponse($gallery_list, 'Gallery List Get successfully.');
             
         }catch (\Throwable $th) {
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
