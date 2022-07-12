@@ -14,7 +14,7 @@ class ServicesTransformer extends TransformerAbstract
      */
     public function transform(Services $services)
     {
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id' => Helper::customCrypt($services->id),
 			'name' => $services->name,

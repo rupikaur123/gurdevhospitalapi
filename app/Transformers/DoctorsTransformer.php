@@ -17,7 +17,7 @@ class DoctorsTransformer extends TransformerAbstract
      */
     public function transform(Doctors $Doctors)
     {
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id'                => Helper::customCrypt($Doctors->id),
             'first_name'      => $Doctors->first_name,

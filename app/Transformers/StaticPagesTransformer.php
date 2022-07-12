@@ -16,7 +16,7 @@ class StaticPagesTransformer extends TransformerAbstract
      */
     public function transform(StaticPages $StaticPages)
     {
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id' => Helper::customCrypt($StaticPages->id),
 			'title' => $StaticPages->title,

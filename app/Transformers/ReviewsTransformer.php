@@ -16,7 +16,7 @@ class ReviewsTransformer extends TransformerAbstract
      */
     public function transform(Reviews $Reviews)
     {
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id' => Helper::customCrypt($Reviews->id),
 			'review' => $Reviews->review,

@@ -19,7 +19,7 @@ class LatestNewsTransformer extends TransformerAbstract
     public function transform(LatestNews $LatestNews)
     {
 
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id' => Helper::customCrypt($LatestNews->id),
 			'title' => $LatestNews->title,

@@ -15,7 +15,7 @@ class GalleryTransformer extends TransformerAbstract
      */
     public function transform(Gallery $Gallery)
     {
-        $api_url = env('API_URL');
+        $api_url = env('APP_URL');
         return [
             'id'                => $Gallery->id,
             'image'             => $api_url.'/'.$Gallery->image_path.$Gallery->image,
