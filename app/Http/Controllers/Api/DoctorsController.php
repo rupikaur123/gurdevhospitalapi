@@ -45,8 +45,8 @@ class DoctorsController extends BaseController
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|min:5|max:50',
                 'last_name' => 'required|min:5|max:50',
-                'email' => 'required|email|unique:doctors,email',
-                'phone_number' => 'required|numeric|digits:10',
+                //'email' => 'required|email|unique:doctors,email',
+                //'phone_number' => 'required|numeric|digits:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'profession' => 'required|min:5|max:50',
                 'qualification' => 'required|min:5|max:50',
@@ -115,8 +115,8 @@ class DoctorsController extends BaseController
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required|min:5|max:50',
                 'last_name' => 'required|min:5|max:50',
-                'email' => 'required|email|unique:doctors,email,'.$id,
-                'phone_number' => 'required|numeric|digits:10',
+                //'email' => 'required|email|unique:doctors,email,'.$id,
+                //'phone_number' => 'required|numeric|digits:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'profession' => 'required|min:5|max:50',
                 'qualification' => 'required|min:5|max:50',
