@@ -25,7 +25,7 @@ class LatestNewsTransformer extends TransformerAbstract
 			'title' => $LatestNews->title,
 			'content' => $LatestNews->content,
 			'date' => $LatestNews->date,
-			'image' => $api_url.$LatestNews->image_path.$LatestNews->image,
+			'image' => $api_url.'/'.$LatestNews->image_path.$LatestNews->image,
 			'status' => $LatestNews->status
         ];
     }
