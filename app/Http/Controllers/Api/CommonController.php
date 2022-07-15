@@ -17,6 +17,7 @@ use App\Models\Gallery;
 use App\Models\Appointments;
 use Illuminate\Support\Facades\Mail;
 use DB;
+use App;
 
 class CommonController extends BaseController
 {
@@ -248,6 +249,7 @@ class CommonController extends BaseController
 
     public function getGalleryList(Request $request){
         try{
+            echo "<pre>";print_r($environment = App::environment());die;
             if(isset($request->rows)){
                 $gallery_list = Gallery::paginate($request->rows);
             }else{
