@@ -23,7 +23,7 @@ class LatestNewsTransformer extends TransformerAbstract
         return [
             'id' => Helper::customCrypt($LatestNews->id),
 			'title' => $LatestNews->title,
-			'content' => $LatestNews->content,
+			'content' => strip_tags($LatestNews->content),
 			'date' => $LatestNews->date,
 			'image' => $api_url.'/'.$LatestNews->image_path.$LatestNews->image,
 			'status' => $LatestNews->status

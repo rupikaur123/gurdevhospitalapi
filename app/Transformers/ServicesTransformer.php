@@ -18,7 +18,7 @@ class ServicesTransformer extends TransformerAbstract
         return [
             'id' => Helper::customCrypt($services->id),
 			'name' => $services->name,
-			'description' => $services->description,
+			'description' => strip_tags($services->description),
 			'alies_name' => $services->alies_name,
 			'image' => $api_url.'/'.$services->image_path.$services->image,
 			'banner_image' => $api_url.'/'.$services->image_path.$services->banner_image,

@@ -20,7 +20,7 @@ class StaticPagesTransformer extends TransformerAbstract
         return [
             'id' => Helper::customCrypt($StaticPages->id),
 			'title' => $StaticPages->title,
-			'content' => $StaticPages->content,
+			'content' => strip_tags($StaticPages->content),
 			'image' => $api_url.'/'.$StaticPages->image_path.$StaticPages->image,
 			'status' => $StaticPages->status
         ];

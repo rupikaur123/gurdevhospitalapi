@@ -19,7 +19,7 @@ class ReviewsTransformer extends TransformerAbstract
         $api_url = env('APP_URL');
         return [
             'id' => Helper::customCrypt($Reviews->id),
-			'review' => $Reviews->review,
+			'review' => strip_tags($Reviews->review),
 			'image' => $api_url.'/'.$Reviews->image_path.$Reviews->image,
 			'status' => $Reviews->status
         ];
