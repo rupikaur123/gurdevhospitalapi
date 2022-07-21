@@ -49,7 +49,7 @@ class DoctorsController extends BaseController
                 //'phone_number' => 'required|numeric|digits:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'profession' => 'required|min:3|max:50',
-                'qualification' => 'required|min:3|max:50',
+                'qualification' => 'required|min:2|max:50',
             ]);
        
             if($validator->fails()){
@@ -119,7 +119,7 @@ class DoctorsController extends BaseController
                 //'phone_number' => 'required|numeric|digits:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'profession' => 'required|min:3|max:50',
-                'qualification' => 'required|min:3|max:50',
+                'qualification' => 'required|min:2|max:50',
             ]);
        
             if($validator->fails()){
