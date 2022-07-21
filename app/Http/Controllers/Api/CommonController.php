@@ -349,7 +349,7 @@ class CommonController extends BaseController
                 $u_email = $request->u_email;
 
                 Mail::send('emails.CommonMailToUser', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
-                    $m->from($input["email_to"],'Appointment');
+                    $m->from($input["email_to"],'Gurdev Hospital');
                     $m->to($input['u_email'])->subject('Request Accepted');
                 });
             }else{
@@ -357,7 +357,7 @@ class CommonController extends BaseController
             }
             
 	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input,$u_email) {
-	            $m->from($u_email,'Appointment');
+	            $m->from('gurdevhospital@gmail.com','Gurdev Hospital');
 	            $m->to($input["email_to"])->subject('Appointment Request');
 	        });
 
