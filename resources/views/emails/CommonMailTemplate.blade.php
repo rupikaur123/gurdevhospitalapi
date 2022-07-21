@@ -8,7 +8,7 @@
 		<td align="center" style="padding: 40px 20px; line-height: 1.6;">
 			<h2 style="text-transform: uppercase; color: #2C72EC;">Appointment Request</h2>
 			<h4>Hello Team,</h4>
-			<h6>Appointment has been requested by new user, Here are the basic details:</h6>
+			<h5>Appointment has been requested by new user, Here are the basic details:</h5>
 			<div>
 				<div><b>Patient Name: </b> {{ $data['u_full_name'] }}</div>
 				<div><b>Mobile number: </b> {{ $data['u_phone_number'] }}</div>
