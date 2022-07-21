@@ -31,6 +31,8 @@ class ServicesController extends BaseController
     public function index(Request $request)
     {
         try{
+
+           
             
             $param = [
                 'search' => ($request->search)?$request->search:'',

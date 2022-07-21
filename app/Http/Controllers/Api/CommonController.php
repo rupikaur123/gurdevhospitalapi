@@ -338,8 +338,7 @@ class CommonController extends BaseController
             $input['appointment_date'] = date('d-m-Y');
             $input['status'] = '1';
             Appointments::create($input);
-	        //$input["email_to"] = env('appointment_sent_to');
-	        $input["email_to"] = 'rubymann929@gmail.com';
+	        $input["email_to"] = env('appointment_sent_to');
             
 	        $image_url = [
 	            'blue_logo_img_url' => env('APP_URL')."/img/".env('BLUE_LOGO_IMG_URL'),
