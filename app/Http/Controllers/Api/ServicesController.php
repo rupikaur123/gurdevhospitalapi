@@ -301,7 +301,7 @@ class ServicesController extends BaseController
         try{
             $validator = Validator::make($request->all(), [
                 'review' => 'required|min:10|max:500',
-                'image' => 'file|mimes:jpeg,png,jpg',
+                'image' => 'file|mimes:jpeg,png,jpg,webp',
             ]);
        
             if($validator->fails()){
@@ -368,7 +368,7 @@ class ServicesController extends BaseController
             $id = Helper::customDecrypt($review_id);
             $validator = Validator::make($request->all(), [
                 'review' => 'required',
-                'image' => 'file|mimes:jpeg,png,jpg',
+                'image' => 'file|mimes:jpeg,png,jpg,webp',
             ]);
        
             if($validator->fails()){
