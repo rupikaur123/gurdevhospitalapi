@@ -48,7 +48,7 @@ class StaticPagesController extends BaseController
     {
         try{
             $validator = Validator::make($request->all(), [
-                'title' => 'required|min:5|max:50',
+                'title' => 'required|unique:static_pages,title',
                 'content' => 'required|min:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
@@ -58,6 +58,18 @@ class StaticPagesController extends BaseController
             }
 
             $input = $request->all();
+
+            if(!isset($input['meta_title']) || $input['meta_title'] == ''){
+                $input['meta_title'] = $input['title'];
+            }
+
+            if(!isset($input['meta_description']) || $input['meta_description'] == ''){
+                $input['meta_description'] = substr($input['content'], 0, 200);
+            }
+            
+            if(!isset($input['meta_keyword']) || $input['meta_keyword'] == ''){
+                $input['meta_keyword'] = $input['title'].' Hospital in Punjab';
+            }
 
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -116,7 +128,7 @@ class StaticPagesController extends BaseController
         try{
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
-                'title' => 'required|min:5|max:50',
+                'title' => 'required|unique:static_pages,title,'.$id,
                 'content' => 'required|min:10',
                 'image' => 'file|mimes:jpeg,png,jpg',
             ]);
@@ -129,6 +141,20 @@ class StaticPagesController extends BaseController
 
             $page = StaticPages::find($id);
             if(!empty($page)){
+
+                if(!isset($input['meta_title']) || $input['meta_title'] == ''){
+                    $input['meta_title'] = $input['title'];
+                }
+
+                if(!isset($input['meta_description']) || $input['meta_description'] == ''){
+                    $input['meta_description'] = substr($input['content'], 0, 200);
+                }
+
+                if(!isset($input['meta_keyword']) || $input['meta_keyword'] == ''){
+                    $input['meta_keyword'] = $input['title'].' Hospital in Punjab';
+                }
+
+
                 if ($request->hasFile('image')) {
                     $file = $request->file('image');
                     

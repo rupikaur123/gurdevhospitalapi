@@ -13,6 +13,9 @@ class StaticPages extends Model
         'title',
         'image',
         'image_path',
+        'meta_title',
+        'meta_description',
+        'meta_keyword',
         'content',
         'status',
     ];
