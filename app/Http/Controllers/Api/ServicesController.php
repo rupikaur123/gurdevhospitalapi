@@ -32,8 +32,6 @@ class ServicesController extends BaseController
     {
         try{
 
-           
-            
             $param = [
                 'search' => ($request->search)?$request->search:'',
                 'column' => ($request->column)?$request->column:'id',
@@ -56,11 +54,14 @@ class ServicesController extends BaseController
     {
         try{
             $validator = Validator::make($request->all(), [
-                'name' => 'required|min:5|max:50',
-                'description' => 'required|min:10|max:1500',
-                'alies_name' => 'required|unique:services,alies_name',
+                'name' => 'required|unique:services,name',
+                'description' => 'required',
+                //'alies_name' => 'required|unique:services,alies_name',
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'banner_image' => 'file|mimes:jpeg,png,jpg',
+               // 'meta_title' => 'required',
+                //'meta_description' => 'required',
+                //'meta_keyword' => 'required',
             ]);
        
             if($validator->fails()){
@@ -68,6 +69,32 @@ class ServicesController extends BaseController
             }
 
             $input = $request->all();
+
+            $name = $input['name'];
+            
+            $string = str_replace(' ', '-', $name); // Replaces all spaces with hyphens.
+
+            $alies_name = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+            
+            $check_alies = Services::where('alies_name',$alies_name)->first();
+           
+            if(!empty($check_alies)){
+                return $this->sendError('Please try with different service name', $validator->errors());   
+            }
+
+            $input['alies_name'] = $alies_name;
+
+            if(!isset($input['meta_title']) || $input['meta_title'] == ''){
+                $input['meta_title'] = $input['name'];
+            }
+
+            if(!isset($input['meta_description']) || $input['meta_description'] == ''){
+                $input['meta_description'] = substr($input['description'], 0, 200);
+            }
+
+            if(!isset($input['meta_keyword']) || $input['meta_keyword'] == ''){
+                $input['meta_keyword'] = $input['name'].' Hospital in Punjab';
+            }
 
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -112,6 +139,7 @@ class ServicesController extends BaseController
 
             }
 
+
             $Services = Services::create($input);
 
             return $this->sendResponse(array(), 'Service created successfully.');
@@ -147,9 +175,9 @@ class ServicesController extends BaseController
         try{
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'description' => 'required|min:10|max:1500',
-                'alies_name' => 'required|unique:services,alies_name,'.$id,
+                'name' => 'required|unique:services,name,'.$id,
+                'description' => 'required',
+                //'alies_name' => 'required|unique:services,alies_name,'.$id,
                 'image' => 'file|mimes:jpeg,png,jpg',
                 'banner_image' => 'file|mimes:jpeg,png,jpg',
             ]);
@@ -162,6 +190,34 @@ class ServicesController extends BaseController
 
             $get_service = Services::find($id);
             if(!empty($get_service)){
+
+                $name = $input['name'];
+            
+                $string = str_replace(' ', '-', $name); // Replaces all spaces with hyphens.
+
+                $alies_name = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+                
+                $check_alies = Services::where('alies_name',$alies_name)->where('id','!=',$id)->first();
+            
+                if(!empty($check_alies)){
+                    return $this->sendError('Please try with different service name', $validator->errors());   
+                }
+
+                $input['alies_name'] = $alies_name;
+
+                if(!isset($input['meta_title']) || $input['meta_title'] == ''){
+                    $input['meta_title'] = $input['name'];
+                }
+
+                if(!isset($input['meta_description']) || $input['meta_description'] == ''){
+                    $input['meta_description'] = substr($input['description'], 0, 200);
+                }
+
+                if(!isset($input['meta_keyword']) || $input['meta_keyword'] == ''){
+                    $input['meta_keyword'] = $input['name'].' Hospital in Punjab';
+                }
+
+
                 if ($request->hasFile('image')) {
                     $file = $request->file('image');
                     
@@ -253,7 +309,7 @@ class ServicesController extends BaseController
      ************************/
     public function getServicesList($id = ''){
         try{
-
+            
             if($id == ''){
                 $param = '';
                 $data = $this->service->get($param);

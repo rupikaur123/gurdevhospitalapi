@@ -15,6 +15,9 @@ class Services extends Model
         'alies_name',
         'image',
         'image_path',
+        'meta_title',
+        'meta_description',
+        'meta_keyword',
         'banner_image',
         'status',
     ];

@@ -16,13 +16,16 @@ class ServicesTransformer extends TransformerAbstract
     {
         $api_url = env('APP_URL');
         return [
-            'id' => Helper::customCrypt($services->id),
-			'name' => $services->name,
-			'description' => $services->description,
-			'alies_name' => $services->alies_name,
-			'image' => $api_url.'/'.$services->image_path.$services->image,
-			'banner_image' => $api_url.'/'.$services->image_path.$services->banner_image,
-			'status' => $services->status
+            'id'                => Helper::customCrypt($services->id),
+			'name'              => $services->name,
+			'description'       => $services->description,
+			'alies_name'        => $services->alies_name,
+			'image'             => $api_url.'/'.$services->image_path.$services->image,
+			'banner_image'      => $api_url.'/'.$services->image_path.$services->banner_image,
+			'status'            => $services->status,
+			'meta_title'        => $services->meta_title,
+			'meta_description'  => $services->meta_description,
+			'meta_keyword'      => $services->meta_keyword,
         ];
     }
 }
