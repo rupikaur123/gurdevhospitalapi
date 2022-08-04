@@ -48,7 +48,7 @@ class CommonController extends BaseController
     {
         try{
             $validator = Validator::make($request->all(), [
-                'title' => 'required|min:5|max:50',
+                'title' => 'required|min:5|max:70',
                 'content' => 'required|min:10',
                 'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
@@ -354,7 +354,7 @@ class CommonController extends BaseController
             }
             
 	        Mail::send('emails.CommonMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
-	            $m->from('gurdevhospital@gmail.com','Gurdev Hospital');
+	            $m->from('gurdevhospitals@gmail.com','Gurdev Hospital');
 	            $m->to($input["email_to"])->subject('Appointment Request');
 	        });
 
