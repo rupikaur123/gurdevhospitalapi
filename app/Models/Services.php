@@ -21,4 +21,9 @@ class Services extends Model
         'banner_image',
         'status',
     ];
+
+    public function DocService()
+    {
+        return $this->hasMany(DocService::class,'id','service_id');
+    }
 }

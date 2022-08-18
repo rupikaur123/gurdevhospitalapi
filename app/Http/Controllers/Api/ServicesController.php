@@ -13,9 +13,11 @@ use Spatie\Fractal\Fractal;
 use App\Models\Gallery;
 use App\Models\Appointments;
 use App\Models\LatestNews;
+use App\Models\DocService;
 use Validator;
 use File;
 use Helper;
+use DB;
 
 class ServicesController extends BaseController
 {
@@ -52,6 +54,7 @@ class ServicesController extends BaseController
      ********************************/
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try{
             $validator = Validator::make($request->all(), [
                 'name' => 'required|unique:services,name',
@@ -67,7 +70,7 @@ class ServicesController extends BaseController
             if($validator->fails()){
                 return $this->sendError($validator->errors()->first(), $validator->errors());       
             }
-
+            
             $input = $request->all();
 
             $name = $input['name'];
@@ -141,10 +144,25 @@ class ServicesController extends BaseController
 
 
             $Services = Services::create($input);
-
+            
+            if(isset($request['doctors']) && $request['doctors'] != ''){
+                $all_doctors = explode(',',$request['doctors']);
+                $service_id = $Services->id;
+                $doc_service['service_id'] = $service_id;
+                if(!empty($all_doctors)){
+                    foreach($all_doctors as $key=>$value){
+                        $doctor_id = Helper::customDecrypt($value);
+                        $doc_service['doctor_id'] = $doctor_id;
+                        DocService::create($doc_service);
+                    }
+                }
+            }
+            
+            DB::commit();
             return $this->sendResponse(array(), 'Service created successfully.');
 
         }catch(\Throwable $th){
+            DB::rollback();
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
     }
@@ -172,6 +190,7 @@ class ServicesController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try{
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
@@ -268,12 +287,31 @@ class ServicesController extends BaseController
                 }
 
                 $get_service->update($input);
+                DocService::where('service_id',$id)->delete();
+                if(isset($request['doctors']) && $request['doctors'] != ''){
+                    $all_doctors = explode(',',$request['doctors']);
+                    $service_id = $id;
+                    $doc_service['service_id'] = $service_id;
+                    if(!empty($all_doctors)){
+                        foreach($all_doctors as $key=>$value){
+                            $doctor_id = Helper::customDecrypt($value);
+                            $doc_service['doctor_id'] = $doctor_id;
+                            DocService::create($doc_service);
+                        }
+                    }
+                }
+                
+                DB::commit();
+                
+
                 return $this->sendResponse(array(), 'Service updated successfully.');
             }else{
+                DB::rollback();
                 return $this->sendError('Please check service id',['error' => 'error']);
             }
 
         }catch (\Throwable $th) {
+            DB::rollback();
             return $this->sendError($th->getMessage(),['error_line' => $th->getLine(),'error_file' => $th->getFile()]);
         }
     }
