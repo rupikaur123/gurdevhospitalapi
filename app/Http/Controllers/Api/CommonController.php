@@ -115,7 +115,7 @@ class CommonController extends BaseController
         try{
             $id = Helper::customDecrypt($id);
             $validator = Validator::make($request->all(), [
-                'title' => 'required|min:5|max:50',
+                'title' => 'required|min:5|max:70',
                 'content' => 'required|min:10',
                 'date' => 'required',
                 'image' => 'file|mimes:jpeg,png,jpg',
