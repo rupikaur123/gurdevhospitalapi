@@ -35,7 +35,7 @@ class ServicesTransformer extends TransformerAbstract
 			'name'              => $services->name,
 			'description'       => $services->description,
 			'alies_name'        => $services->alies_name,
-			'image'             => $api_url.'/'.$services->image_path.$services->image,
+			'image'             => ($services->image != '')?$api_url.'/'.$services->image_path.$services->image:Null,
 			'banner_image'      => $api_url.'/'.$services->image_path.$services->banner_image,
 			'status'            => $services->status,
 			'meta_title'        => $services->meta_title,
