@@ -139,6 +139,7 @@ class ServicesController extends BaseController
                 $file->move($destinationPath, $newname);
 
                 $input['banner_image'] = $newname;
+                $input['image_path'] = $path;
 
             }
 
@@ -280,6 +281,7 @@ class ServicesController extends BaseController
                     $file->move($destinationPath, $newname);
     
                     $input['banner_image'] = $newname;
+                    $input['image_path'] = $path;
     
                     if($get_service->banner_image != '' && $get_service->banner_image != null && $get_service->banner_image != 'null'){
                         File::delete($destinationPath.$get_service->banner_image);
