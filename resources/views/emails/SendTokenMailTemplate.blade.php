@@ -9,7 +9,7 @@
 			<h2 style="text-transform: uppercase; color: #2C72EC;">Password Reset Token</h2>
 			<h4>Hello Admin,</h4>
 			<div>
-				<div>Please {{ $data['resetlink'] }} to reset your Password.</div>
+				<div>Please <a href="{{ $data['resetlink'] }}">Click here</a> to reset your Password.</div>
 			</div>
 			
 			<h5 style="margin-bottom: 0; "><strong>Thanks & Regards</strong></h5>

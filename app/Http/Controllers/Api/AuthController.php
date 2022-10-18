@@ -127,7 +127,7 @@ class AuthController extends BaseController
 	            'smile_img_url' => env('APP_URL')."/img/".env('SMILE_IMG_URL'),
 	        ];
 
-            $resetlink = "<a href=".$resetlink.">Click here</a>";
+            //$resetlink = "<a href=".$resetlink.">Click here</a>";
             $input["resetlink"] = $resetlink;
             
 	        Mail::send('emails.SendTokenMailTemplate', ['data' => $input, 'image_url'=>$image_url], function ($m) use($input) {
