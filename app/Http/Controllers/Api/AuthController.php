@@ -135,7 +135,7 @@ class AuthController extends BaseController
 	            $m->to($input["email_to"])->subject('Reset Password');
 	        });
             DB::commit();
-            return $this->sendResponse(array('token'=>$token), 'The token has been sent to your mail successfully');
+            return $this->sendResponse(array(), 'The token has been sent to your mail successfully');
   
         }catch(\Throwable $th){
             DB::rollback();

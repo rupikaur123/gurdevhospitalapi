@@ -6,7 +6,6 @@
 	</tr>
 	<tr>
 		<td align="center" style="padding: 40px 20px; line-height: 1.6;">
-			<h2 style="text-transform: uppercase; color: #2C72EC;">Password Reset Token</h2>
 			<h4>Hello Admin,</h4>
 			<div>
 				<div>Please <a href="{{ $data['resetlink'] }}">Click here</a> to reset your Password.</div>
